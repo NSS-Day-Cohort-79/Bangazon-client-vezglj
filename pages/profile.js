@@ -16,7 +16,7 @@ export default function Profile() {
         setProfile(profileData);
       }
     });
-  }, []);
+  }, [setProfile]);
 
   return (
     <>
