@@ -115,7 +115,7 @@ export default function Navbar() {
         </a>
       </div>
 
-      <div className="navbar-menu" ref={navbar}>
+      <div className="navbar-menu" ref={navbar} onClick={showMobileNavbar}>
         <div className="navbar-start">
           <Link href="/products" className="navbar-item">
             Products
