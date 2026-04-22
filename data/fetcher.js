@@ -7,12 +7,19 @@ const checkError = (res) => {
   return res;
 };
 
-const checkErrorJson = (res) => {
+const checkErrorJson = async (res) => {
   if (!res.ok) {
-    throw Error(res.status);
-  } else {
-    return res.json();
+    let message = `${res.status}`;
+
+    try {
+      const data = await res.json();
+      message = data.error || data.detail || JSON.stringify(data);
+    } catch (e) {}
+
+    throw Error(message);
   }
+
+  return res.json();
 };
 
 const catchError = (err) => {
@@ -24,7 +31,6 @@ const catchError = (err) => {
   if (err.message === "404") {
     throw Error(err.message);
   }
-  throw Error("An error occurred while fetching data");
 };
 
 export const fetchWithResponse = (resource, options) =>
