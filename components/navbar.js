@@ -14,6 +14,28 @@ export default function Navbar() {
     }
   }, [token]);
 
+  // Handle user clicking outside navbar and closing dropdown menu
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      // Was the click outside the navbar/menu?
+      if (
+        navbar.current &&
+        !navbar.current.contains(e.target) &&
+        hamburger.current &&
+        !hamburger.current.contains(e.target)
+      ) {
+        // Is the navbar/menu open/is-active? If yes, close the menu
+        if (navbar.current.classList.contains("is-active")) {
+          showMobileNavbar()
+         }
+      }
+    }
+    // Was there a click?
+    document.addEventListener("click", handleOutsideClick);
+    //Unmount after
+    return () => document.removeEventListener("click", handleOutsideClick)
+  }, [])
+
   const showMobileNavbar = () => {
     hamburger.current.classList.toggle("is-active");
     navbar.current.classList.toggle("is-active");
