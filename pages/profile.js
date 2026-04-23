@@ -34,10 +34,10 @@ export default function Profile() {
       </CardLayout>
       <CardLayout title="Products you've recommended" width="is-full">
         <div className="columns is-multiline">
-          {profile.recommended_by?.map((recommendation) => (
+          {profile.user_recommends?.map((recommendation) => (
             <ProductCard
               product={recommendation.product}
-              key={recommendation.product.id}
+              key={recommendation.id}
               width="is-one-third"
             />
           ))}
@@ -46,10 +46,10 @@ export default function Profile() {
       </CardLayout>
       <CardLayout title="Products recommended to you" width="is-full">
         <div className="columns is-multiline">
-          {profile.recommendations?.map((recommendation) => (
+          {profile.recommended_to_user?.map((recommendation) => (
             <ProductCard
               product={recommendation.product}
-              key={recommendation.product.id}
+              key={recommendation.id}
               width="is-one-third"
             />
           ))}
