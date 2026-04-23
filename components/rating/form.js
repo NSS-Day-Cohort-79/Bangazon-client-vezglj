@@ -5,10 +5,13 @@ export default function RatingForm({ saveRating }) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
+  const handleRating = (rate) => {
+    setRating(rate);
+  };
+
   const submitRating = () => {
-    const outOf5 = rating / 20;
     saveRating({
-      score: outOf5,
+      score: rating,
       review: comment,
     });
   };
@@ -17,7 +20,7 @@ export default function RatingForm({ saveRating }) {
     <div className="tile is-child ">
       <article className="media box">
         <figure className="media-left">
-          <Rating onClick={setRating} ratingValue={rating} />
+          <Rating onClick={handleRating} />
         </figure>
         <div className="media-content">
           <div className="field">
