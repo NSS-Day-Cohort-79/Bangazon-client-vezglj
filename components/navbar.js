@@ -146,7 +146,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="navbar-end">
-          {isLoggedIn && <div className="mt-5">Hello, {profile.user?.first_name}</div>}
+          {isLoggedIn && <div className="mt-5 has-text-weight-semibold">Hello, {profile.user?.first_name}</div>}
           {isLoggedIn ? getLoggedInButtons() : getLoggedOutButtons()}
         </div>
       </div>
