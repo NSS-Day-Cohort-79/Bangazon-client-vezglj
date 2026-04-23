@@ -15,7 +15,7 @@ export default function Products() {
     getProducts().then(data => {
       if (data) {
 
-        const locationData = [...new Set(data.map(product => product.location))]
+        const locationData = [...new Set(data.flatMap( group => group.products).map(product => product.location))]
         const locationObjects = locationData.map(location => ({
           id: location,
           name: location
