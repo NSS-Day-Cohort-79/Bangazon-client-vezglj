@@ -1,15 +1,19 @@
 const API_URL = "http://localhost:8000";
 
-const checkError = (res) => {
+const checkError = async (res) => {
   if (!res.ok) {
-    throw Error(res.status);
+    const data = await res.json().catch(() => null);
+    throw { message: res.status.toString(), data };
   }
   return res;
 };
 
-const checkErrorJson = (res) => {
-  if (res.status !== 200) {
-    throw Error(res.status);
+const checkErrorJson = async (res) => {
+  if (!res.ok) {
+    const data = await res.json().catch(() => null);
+    console.log("FETCHER STATUS:", res.status);
+    console.log("FETCHER ERROR DATA:", data);
+    throw { message: res.status.toString(), data };
   } else {
     return res.json();
   }
@@ -19,9 +23,7 @@ const catchError = (err) => {
   if (err.message === "401") {
     window.location.href = "/login";
   }
-  if (err.message === "404") {
-    return err;
-  }
+  throw err;
 };
 
 export const fetchWithResponse = (resource, options) =>
@@ -31,3 +33,5 @@ export const fetchWithResponse = (resource, options) =>
 
 export const fetchWithoutResponse = (resource, options) =>
   fetch(`${API_URL}/${resource}`, options).then(checkError).catch(catchError);
+
+//this does not matter at all
