@@ -1,6 +1,11 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-export function ProductCard({ product, removeProduct, isOwner = false, width="is-one-quarter" }) {
+export function ProductCard({
+  product,
+  removeProduct,
+  isOwner = false,
+  width = "is-one-quarter",
+}) {
   return (
     <div className={`column ${width}`}>
       <div className="card">
@@ -11,25 +16,33 @@ export function ProductCard({ product, removeProduct, isOwner = false, width="is
         </div>
         <header className="card-header">
           <p className="card-header-title">
-            <Link href={`/products/${product.id}`}>{product.name} - ${product.price}</Link>
+            <Link href={`/products/${product.id}`}>
+              {product.name} - ${product.price}
+            </Link>
           </p>
         </header>
         <div className="card-content">
-          <div className="content">
-            {product.description}
-          </div>
+          <div className="content">{product.description}</div>
         </div>
-        {
-          isOwner ?
-            <footer className="card-footer">
-              <Link href={`/products/${product.id}/edit`} className="card-footer-item">Edit</Link>
-              <a onClick={() => removeProduct(product.id)} className="card-footer-item">Delete</a>
-            </footer>
-            :
-            <></>
-        }
-
+        {isOwner ? (
+          <footer className="card-footer">
+            <Link
+              href={`/products/${product.id}/edit`}
+              className="card-footer-item"
+            >
+              Edit
+            </Link>
+            <a
+              onClick={() => removeProduct(product.id)}
+              className="card-footer-item"
+            >
+              Delete
+            </a>
+          </footer>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
-  )
+  );
 }

@@ -21,9 +21,14 @@ export default function NewStore() {
       if (!res) return;
       setProfile({
         ...profile,
+<<<<<<< HEAD
         stores: res,
       });
 
+=======
+        store: res,
+      });
+>>>>>>> b938eb0916c583536c27821d63922838a2367f85
       router.push(`/stores/${res.id}`);
     });
   };
