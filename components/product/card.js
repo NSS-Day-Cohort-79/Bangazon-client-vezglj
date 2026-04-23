@@ -11,7 +11,7 @@ export function ProductCard({
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
-            <img src={product.image_path} alt="Placeholder image"></img>
+            <img src={product.image_path} alt={product.description}></img>
           </figure>
         </div>
         <header className="card-header">

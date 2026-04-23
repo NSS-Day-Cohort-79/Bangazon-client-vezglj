@@ -14,6 +14,28 @@ export default function Navbar() {
     }
   }, [token]);
 
+  // Handle user clicking outside navbar and closing dropdown menu
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      // Was the click outside the navbar/menu?
+      if (
+        navbar.current &&
+        !navbar.current.contains(e.target) &&
+        hamburger.current &&
+        !hamburger.current.contains(e.target)
+      ) {
+        // Is the navbar/menu open/is-active? If yes, close the menu
+        if (navbar.current.classList.contains("is-active")) {
+          showMobileNavbar()
+         }
+      }
+    }
+    // Was there a click?
+    document.addEventListener("click", handleOutsideClick);
+    //Unmount after
+    return () => document.removeEventListener("click", handleOutsideClick)
+  }, [])
+
   const showMobileNavbar = () => {
     hamburger.current.classList.toggle("is-active");
     navbar.current.classList.toggle("is-active");
@@ -99,7 +121,6 @@ export default function Navbar() {
             className="relative"
           />
         </Link>
-
         <a
           role="button"
           className="navbar-burger"
@@ -108,14 +129,14 @@ export default function Navbar() {
           data-target="navbarBasicExample"
           ref={hamburger}
           onClick={showMobileNavbar}
-        >
+          >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
 
-      <div className="navbar-menu" ref={navbar}>
+      <div className="navbar-menu" ref={navbar} onClick={showMobileNavbar}>
         <div className="navbar-start">
           <Link href="/products" className="navbar-item">
             Products
@@ -125,6 +146,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="navbar-end">
+          {isLoggedIn && <div className="mt-5 has-text-weight-semibold">Hello, {profile.user?.first_name}</div>}
           {isLoggedIn ? getLoggedInButtons() : getLoggedOutButtons()}
         </div>
       </div>
