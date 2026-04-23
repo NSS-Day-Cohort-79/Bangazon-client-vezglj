@@ -121,7 +121,6 @@ export default function Navbar() {
             className="relative"
           />
         </Link>
-
         <a
           role="button"
           className="navbar-burger"
@@ -130,7 +129,7 @@ export default function Navbar() {
           data-target="navbarBasicExample"
           ref={hamburger}
           onClick={showMobileNavbar}
-        >
+          >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -147,6 +146,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="navbar-end">
+          {isLoggedIn && <div className="mt-5 has-text-weight-semibold">Hello, {profile.user?.first_name}</div>}
           {isLoggedIn ? getLoggedInButtons() : getLoggedOutButtons()}
         </div>
       </div>
