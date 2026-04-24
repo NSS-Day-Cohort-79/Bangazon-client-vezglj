@@ -48,13 +48,24 @@ export default function Products() {
       <Filter productCount={products.length} onSearch={searchProducts} locations={locations} />
 
       <div className="columns is-multiline">
-        {products.map(group => (
-         <div key={group.category}>
-         <h2> {group.category} </h2> 
-         {group.products.map(product => <ProductCard product={product} key={product.id}/>)}
-         </div>
-        ))}
-        </div>
+        {isFiltered ? (
+          <div>
+            <h2>Products matching filters</h2>
+            {products[0].products.map(product => (
+              <ProductCard product={product} key={product.id}/>
+            ))}
+          </div>
+        ) : (
+          products.map(group => (
+            <div key={group.category}>
+              <h2>{group.category}</h2>
+              {group.products.map(product => (
+                <ProductCard product={product} key={product.id}/>
+              ))}
+            </div>
+          ))
+        )}
+      </div>
     </>
   )
 }
