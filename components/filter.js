@@ -58,6 +58,15 @@ export default function Filter({ productCount, onSearch, locations }) {
     }
   }, [query, onSearch]);
 
+  useEffect(() => {
+    getCategories().then((data) => {
+      console.log(data)
+      if (data) {
+        setCategories(data)
+      }
+    })
+  }, []);
+
   const buildQuery = (key, value) => {
     if (value && value !== "0") {
       return `${key}=${value}&`;
