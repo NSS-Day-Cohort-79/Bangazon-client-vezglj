@@ -15,11 +15,7 @@ export default function Filter({ productCount, onSearch, locations }) {
 
   const [showFilters, setShowFilters] = useState(false);
   const [query, setQuery] = useState("");
-  const [categories, setCategories] = useState([
-    { id: 1, name: "Apples" },
-    { id: 2, name: "Oranges" },
-    { id: 3, name: "Lemons" },
-  ]);
+  const [categories, setCategories] = useState([]);
   const [direction, setDirection] = useState("asc");
   const clear = () => {
     for (let ref in refEls) {
@@ -60,7 +56,7 @@ export default function Filter({ productCount, onSearch, locations }) {
     if (query) {
       onSearch(query);
     }
-  }, [query]);
+  }, [query, onSearch]);
 
   const buildQuery = (key, value) => {
     if (value && value !== "0") {
