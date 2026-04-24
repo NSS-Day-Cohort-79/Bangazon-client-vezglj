@@ -10,6 +10,7 @@ export default function Products() {
   const [isLoading, setIsLoading] = useState(true)
   const [loadingMessage, setLoadingMessage] = useState("Loading products...")
   const [locations, setLocations] = useState([])
+  const [isFiltered, setIsFiltered] = useState(false)
 
   useEffect(() => {
     getProducts().then(data => {
@@ -32,6 +33,7 @@ export default function Products() {
   }, [])
 
   const searchProducts = (event) => {
+    setIsFiltered(event !== '')
     getProducts(event).then(productsData => {
       if (productsData) {
         setProducts(productsData)
@@ -46,10 +48,13 @@ export default function Products() {
       <Filter productCount={products.length} onSearch={searchProducts} locations={locations} />
 
       <div className="columns is-multiline">
-        {products.map(product => (
-          <ProductCard product={product} key={product.id} />
+        {products.map(group => (
+         <div key={group.category}>
+         <h2> {group.category} </h2> 
+         {group.products.map(product => <ProductCard product={product} key={product.id}/>)}
+         </div>
         ))}
-      </div>
+        </div>
     </>
   )
 }
