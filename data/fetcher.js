@@ -10,10 +10,7 @@ const checkError = async (res) => {
 
 const checkErrorJson = async (res) => {
   if (!res.ok) {
-    const data = await res.json().catch(() => null);
-    console.log("FETCHER STATUS:", res.status);
-    console.log("FETCHER ERROR DATA:", data);
-    throw { message: res.status.toString(), data };
+    throw Error(res.status);
   } else {
     return res.json();
   }
@@ -23,7 +20,9 @@ const catchError = (err) => {
   if (err.message === "401") {
     window.location.href = "/login";
   }
-  throw err;
+  if (err.message === "404") {
+    return Error(err.message);
+  }
 };
 
 export const fetchWithResponse = (resource, options) =>
@@ -33,5 +32,3 @@ export const fetchWithResponse = (resource, options) =>
 
 export const fetchWithoutResponse = (resource, options) =>
   fetch(`${API_URL}/${resource}`, options).then(checkError).catch(catchError);
-
-//this does not matter at all

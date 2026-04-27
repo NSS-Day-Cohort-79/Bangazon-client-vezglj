@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { rateProduct } from "../../data/products";
 import { RatingsContainer } from "./container";
 import { Header } from "./header";
+import { useRouter } from "next/router";
 
 export function Ratings({
   average_rating,
@@ -11,15 +12,15 @@ export function Ratings({
   likes = [],
 }) {
   const [productId, setProductId] = useState(0);
+  const router = useRouter();
+  const { id } = router.query;
   const saveRating = (newRating) => {
     rateProduct(productId, newRating).then(refresh);
   };
 
   useEffect(() => {
-    if (ratings.length) {
-      setProductId(ratings[0].product);
-    }
-  }, [ratings]);
+    setProductId(id);
+  }, [id]);
 
   return (
     <div className="tile is-ancestor is-flex-wrap-wrap">
