@@ -60,7 +60,6 @@ export default function Filter({ productCount, onSearch, locations }) {
 
   useEffect(() => {
     getCategories().then((data) => {
-      console.log(data)
       if (data) {
         setCategories(data)
       }
