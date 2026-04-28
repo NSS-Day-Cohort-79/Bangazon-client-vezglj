@@ -26,3 +26,13 @@ export function completeCurrentOrder(orderId, paymentTypeId) {
     body: JSON.stringify({ paymentTypeId }),
   });
 }
+
+export function deleteOrder() {
+  return fetchWithoutResponse(`cart/clear`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("token")}`,
+      "Content-Type": "apllication/json"
+    }
+  })
+ }
