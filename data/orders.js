@@ -1,28 +1,37 @@
-import { fetchWithResponse } from './fetcher'
+import { fetchWithResponse, fetchWithoutResponse } from "./fetcher";
 
 export function getCart() {
-  return fetchWithResponse('cårt', {
+  return fetchWithResponse("cart", {
     headers: {
-      Authorization: `Token ${localStorage.getItem('token')}`
-    }
-  })
+      Authorization: `Token ${localStorage.getItem("token")}`,
+    },
+  });
 }
 
 export function getOrders() {
-  return fetchWithResponse('orders', {
+  return fetchWithResponse("orders", {
     headers: {
-      Authorization: `Token ${localStorage.getItem('token')}`
-    }
-  })
+      Authorization: `Token ${localStorage.getItem("token")}`,
+    },
+  });
 }
 
 export function completeCurrentOrder(orderId, paymentTypeId) {
   return fetchWithResponse(`orders/${orderId}/complete`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      Authorization: `Token ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json'
+      Authorization: `Token ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({paymentTypeId})
-  })
+    body: JSON.stringify({ paymentTypeId }),
+  });
 }
+
+export function deleteOrder() {
+  return fetchWithoutResponse(`cart/clear`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("token")}`,
+    }
+  })
+ }
