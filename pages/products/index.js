@@ -16,14 +16,6 @@ export default function Products() {
     getProducts()
       .then((data) => {
         if (data) {
-          const locationData = [
-            ...new Set(data.map((product) => product.location)),
-          ];
-          const locationObjects = locationData.map((location) => ({
-            id: location,
-            name: location,
-          }));
-
         const locationData = [...new Set(data.flatMap( group => group.products).map(product => product.location))]
         const locationObjects = locationData.map(location => ({
           id: location,
@@ -41,6 +33,7 @@ export default function Products() {
   }, [])
 
   const searchProducts = (event) => {
+    console.log("search event:", event)
     setIsFiltered(event !== '')
     getProducts(event).then(productsData => {
       if (productsData) {
