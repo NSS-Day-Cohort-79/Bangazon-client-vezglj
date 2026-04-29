@@ -41,6 +41,7 @@ export default function Products() {
       }
     });
   };
+  
 
   if (isLoading) return <p>{loadingMessage}</p>;
 
