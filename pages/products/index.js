@@ -58,22 +58,26 @@ export default function Products() {
         onSearch={searchProducts}
         locations={locations}
       />
-
-      <div className="columns is-multiline">
+        <div>
         {isFiltered ? (
           <div>
             <h2>Products matching filters</h2>
-            {products[0].products.map(product => (
+            <div className="columns is-multiline">
+              {products[0].products.map(product => (
               <ProductCard product={product} key={product.id}/>
-            ))}
+              ))}
+            </div>
           </div>
+
         ) : (
           products.map(group => (
             <div key={group.category}>
               <h2>{group.category}</h2>
-              {group.products.map(product => (
+              <div className="columns is-multiline">
+                {group.products.map(product => (
                 <ProductCard product={product} key={product.id}/>
               ))}
+              </div>
             </div>
           ))
         )}
