@@ -41,14 +41,20 @@ export default function Products() {
       }
     });
   };
-  
+
+  let totalProducts = 0
+  for (const group of products) {
+      for (const product of group.products) {
+        totalProducts++
+    }
+}
 
   if (isLoading) return <p>{loadingMessage}</p>;
 
   return (
     <>
       <Filter
-        productCount={products.length}
+        productCount={totalProducts}
         onSearch={searchProducts}
         locations={locations}
       />
