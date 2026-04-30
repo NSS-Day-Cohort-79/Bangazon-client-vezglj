@@ -7,7 +7,9 @@ export default function CompleteFormModal({
   paymentTypes,
   completeOrder,
 }) {
+
   const [selectedPayment, setSelectedPayment] = useState(0);
+  
   return (
     <Modal
       showModal={showModal}
