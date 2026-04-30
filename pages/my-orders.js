@@ -25,7 +25,7 @@ export default function Orders() {
             <tr key={order.id}>
               <td>{order.completed_on}</td>
               <td>${order.total}</td>
-              <td>{order.payment_type?.obscured_num}</td>
+              <td>{order.payment_type?.merchant_name}</td>
             </tr>
           ))}
         </Table>
