@@ -10,53 +10,77 @@ export default function Products() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingMessage, setLoadingMessage] = useState("Loading products...");
   const [locations, setLocations] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
 
   useEffect(() => {
     getProducts()
       .then((data) => {
         if (data) {
-          const locationData = [
-            ...new Set(data.map((product) => product.location)),
-          ];
-          const locationObjects = locationData.map((location) => ({
-            id: location,
-            name: location,
-          }));
+        const locationData = [...new Set(data.flatMap( group => group.products).map(product => product.location))]
+        const locationObjects = locationData.map(location => ({
+          id: location,
+          name: location
+        }))
 
-          setProducts(data);
-          setIsLoading(false);
-          setLocations(locationObjects);
-        }
-      })
-      .catch((err) => {
-        setLoadingMessage(
-          `Unable to retrieve products. Status code ${err.message} on response.`,
-        );
-      });
-  }, []);
+        setProducts(data);
+        setIsLoading(false);
+        setLocations(locationObjects);
+      }
+    })
+    .catch(err => {
+      setLoadingMessage(`Unable to retrieve products. Status code ${err.message} on response.`)
+    })
+  }, [])
 
   const searchProducts = (event) => {
-    getProducts(event).then((productsData) => {
+    console.log("search event:", event)
+    setIsFiltered(event !== '')
+    getProducts(event).then(productsData => {
       if (productsData) {
         setProducts(productsData);
       }
     });
   };
 
+  let totalProducts = 0
+  for (const group of products) {
+      for (const product of group.products) {
+        totalProducts++
+    }
+}
+
   if (isLoading) return <p>{loadingMessage}</p>;
 
   return (
     <>
       <Filter
-        productCount={products.length}
+        productCount={totalProducts}
         onSearch={searchProducts}
         locations={locations}
       />
+        <div>
+        {isFiltered ? (
+          <div>
+            <h2>Products matching filters</h2>
+            <div className="columns is-multiline">
+              {products[0].products.map(product => (
+              <ProductCard product={product} key={product.id}/>
+              ))}
+            </div>
+          </div>
 
-      <div className="columns is-multiline">
-        {products.map((product) => (
-          <ProductCard product={product} key={product.id} />
-        ))}
+        ) : (
+          products.map(group => (
+            <div key={group.category}>
+              <h2>{group.category}</h2>
+              <div className="columns is-multiline">
+                {group.products.map(product => (
+                <ProductCard product={product} key={product.id}/>
+              ))}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </>
   );

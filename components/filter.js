@@ -56,7 +56,7 @@ export default function Filter({ productCount, onSearch, locations }) {
     if (query) {
       onSearch(query);
     }
-  }, [query, onSearch]);
+  }, [query]);
 
   useEffect(() => {
     getCategories().then((data) => {
