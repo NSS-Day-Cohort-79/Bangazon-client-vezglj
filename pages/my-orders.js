@@ -21,7 +21,7 @@ export default function Orders() {
     <>
       <CardLayout title="Your Orders">
         <Table headers={headers}>
-          {orders.map((order) => (
+          {orders.filter((order) => (order.completed_on)).map((order) => (
             <tr key={order.id}>
               <td>{order.completed_on}</td>
               <td>${order.total}</td>
