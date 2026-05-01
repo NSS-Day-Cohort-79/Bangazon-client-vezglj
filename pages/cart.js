@@ -54,18 +54,25 @@ export default function Cart() {
         paymentTypes={paymentTypes}
         completeOrder={completeOrder}
       />
-      <CardLayout title="Your Current Order">
-        <CartDetail cart={cart} removeProduct={removeProduct} />
-        <>
-          <a
-            className="card-footer-item"
-            onClick={() => setShowCompleteForm(true)}
-          >
-            Complete Order
-          </a>
-          <a className="card-footer-item" onClick={() => deleteCart()}>Delete Order</a>
-        </>
-      </CardLayout>
+      {cart?.id ? (
+        <CardLayout title="Your Current Order">
+          <CartDetail cart={cart} removeProduct={removeProduct} />
+          <>
+            <a
+              className="card-footer-item"
+              onClick={() => setShowCompleteForm(true)}
+            >
+              Complete Order
+            </a>
+            <a className="card-footer-item" onClick={() => deleteCart()}>Delete Order</a>
+          </>
+        </CardLayout>
+      ) : (
+           <CardLayout title="Your Cart is Empty">
+          <CartDetail cart={cart} removeProduct={removeProduct} />
+          <></>
+        </CardLayout>
+      )}
     </>
   );
 }
